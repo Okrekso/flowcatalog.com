@@ -44,6 +44,10 @@ body
     background: rgb(34, 160, 34);
     font-size: 15pt;
 }
+#search .btn:hover
+{
+    background: rgb(37, 207, 37);
+}
 #search input
 {
     width:300pt; height:20pt;
@@ -94,7 +98,6 @@ body
 }
 .itm
 {
-    position: relative;
     width:200pt; min-height:250pt;
     margin:5pt;
     background: rgb(230, 230, 230);
@@ -112,10 +115,12 @@ body
     font-size: 15pt;
     background:rgb(64, 184, 68);
     padding: 5pt;
+    text-align: center;
+    width:190pt;
 }
 .itm img
 {
-    height:70pt;
+    height:90pt;
     align-self: center;
     margin:auto;
 }
@@ -158,10 +163,20 @@ body
 .itm .btn img
 {
     height:60%;
-    margin:0;
+    margin:0; margin-left: 5pt;
     user-select: none;
 }
 .itm .btn:hover
 {
     background: rgb(0, 180, 0);
+}
+/*itm_out*/
+.end .header
+{
+    background: rgb(75, 75, 75);
+}
+.end img
+{
+    opacity:0.6;
+    filter: grayscale(100%);    
 }

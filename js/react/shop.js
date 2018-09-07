@@ -37,12 +37,18 @@ function Item(props)
         }
         render()
         {
-            return <div id={'buy_'+this.props.id} onMouseDown={(e)=>this.functional(e)} className='btn'> <img src='pics/cart.png'/></div>;
+            return <div id={'buy_'+this.props.id} onMouseDown={(e)=>this.functional(e)} className='btn'> 
+            <p id='price'>{this.props.price}<b> UAH</b></p>
+            <img src='pics/cart.png'/>
+            </div>;
         }
     }
+
     function Tags()
     {
-        var tags=['food','sneaks','sport','football']
+        var tags=props.tags.split(';');
+        tags=tags.filter(i=>i!='');
+        console.log(tags);
         var tags_p=[];
         for (var i=0;i<tags.length;i++)
         {
@@ -51,26 +57,38 @@ function Item(props)
         return <div id='tags'>{tags_p}</div>;
     }
     return(
-        <div className='itm' id={'itm_'+props.id}>
-            <b><p className='Header'>Item name example big name of item</p></b>
+        <div className={props.count>0?'itm':'itm end'} id={'itm_'+props.id}>
+            <b><p className='Header'>{props.name}</p></b>
             <p className='descript'>about</p>
-            <img src='/pics/noimg.png'/>
-            <Tags/>
-            <BuyBtn id={props.id}/>
+            <img src={props.img==null?'/pics/noimg.png':props.img}/>
+            {(props.count>0)?<Tags/>:''}
+            {(props.count>0)?<BuyBtn price={props.price} id={props.id}/>:''}
         </div>
         );
 }
 //render
 function RenderShop()
 {
+    var items;
+    var ajax = $.ajax(
+        {
+            url:"/php/renderShop.php",
+            async:false,
+            success: function(res)
+            {
+                items = JSON.parse(res);
+            }
+        }
+    );
+    console.log(items);
     function App()
     {
-        var items=[];
-            for(var i=0;i<9;i++)
+        var items_p=[];
+            for(var i=0;i<items.length;i++)
             {
-                items.push(<Item key={i} id={i}/>);
+                items_p.push(<Item key={items[i][0]} name={items[i][1]} price={items[i][2]} img={items[i][4]} tags={items[i][3]} count={items[i][5]} id={items[i][0]}/>);
             }
-        return (<div id='items'>{items}</div>);
+        return (<div id='items'>{items_p}</div>);
     }
     ReactDOM.render(<App/>,document.getElementById('main'));
 }
