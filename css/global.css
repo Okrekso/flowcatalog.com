@@ -1,0 +1,23 @@
+p
+{
+    font-family: Arial;
+    font-size: 18pt;
+    color:white;
+    margin:0;
+}
+h1
+{
+    font-family: Impact;
+    color:white;
+    margin:0;
+}
+
+.btn
+{
+    font-family: Arial; font-size: 19pt;
+    cursor: pointer;
+    color:white;
+    height:100%;
+    display: flex; align-items:center;
+    transition: 0.2s;
+}
