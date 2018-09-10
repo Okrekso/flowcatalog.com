@@ -48,7 +48,6 @@ function Item(props)
     {
         var tags=props.tags.split(';');
         tags=tags.filter(i=>i!='');
-        console.log(tags);
         var tags_p=[];
         for (var i=0;i<tags.length;i++)
         {
@@ -80,7 +79,6 @@ function RenderShop()
             }
         }
     );
-    console.log(items);
     function App()
     {
         var items_p=[];
@@ -88,9 +86,17 @@ function RenderShop()
             {
                 items_p.push(<Item key={items[i][0]} name={items[i][1]} price={items[i][2]} img={items[i][4]} tags={items[i][3]} count={items[i][5]} id={items[i][0]}/>);
             }
-        return (<div id='items'>{items_p}</div>);
+        return (<div id='shop_content'><div id='items'>{items_p}</div><div id='pager'></div></div>);
     }
     ReactDOM.render(<App/>,document.getElementById('main'));
+    animateInRow(".itm",100);
+    
 }
-
+function animateInRow(classToAnim, delay,animFrom={marginTop:"-=20pt",opacity:0},animTo={marginTop:"+=20pt",opacity:1})
+{
+    var del=0;
+    $(classToAnim).animate(animFrom,0);
+    $(classToAnim).each((i,itm)=>{$("#"+itm.id).delay(del).animate(animTo,500); del+=delay;});
+}
+//items
 var incart=[];

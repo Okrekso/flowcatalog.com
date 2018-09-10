@@ -10,12 +10,14 @@ body
 #header
 {
     width:100%;height:30pt;
-    background:green;
+    background:linear-gradient(green,darkgreen);
     top:0;
 
     display: flex;
     align-items: center;
     justify-content: center;
+
+    z-index: 1000;
 }
 #header .btn
 {
@@ -37,20 +39,22 @@ body
     width:min-content;
     display: flex;
     flex-wrap: nowrap;
+    align-items: flex-start;
 }
 #search .btn
 {
     height:20pt;
     background: rgb(34, 160, 34);
     font-size: 15pt;
+    opacity:0;
 }
 #search .btn:hover
 {
-    background: rgb(37, 207, 37);
+    background: rgba(37, 207, 37, 0.9);
 }
 #search input
 {
-    width:300pt; height:20pt;
+    width:0pt; height:20pt;
     border: none; background: white;
     font-family: Arial;
 }
@@ -88,6 +92,19 @@ body
     background: rgb(245, 245, 245);
     width:80%; min-height: calc(100% - 30pt);
     top:0;
+    display:flex;
+    justify-content: center;
+}
+/*for Shop*/
+#shop_content
+{
+    width:90%;
+    height:max-content;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
 }
 /*items*/
 #items
@@ -98,7 +115,7 @@ body
 }
 .itm
 {
-    width:200pt; min-height:250pt;
+    width:150pt; min-height:200pt;
     margin:5pt;
     background: rgb(230, 230, 230);
 
@@ -113,16 +130,16 @@ body
 .itm .header
 {
     font-size: 15pt;
-    background:rgb(64, 184, 68);
+    background:linear-gradient(rgb(64, 184, 68),rgb(32, 160, 37));
     padding: 5pt;
     text-align: center;
-    width:190pt;
+    width:140pt;
 }
 .itm img
 {
-    height:90pt;
+    height:75pt;
     align-self: center;
-    margin:auto;
+    margin:auto; margin-top: 15pt;
 }
 .itm .descript
 {
@@ -178,5 +195,15 @@ body
 .end img
 {
     opacity:0.6;
-    filter: grayscale(100%);    
+    filter: grayscale(100%);
+}
+/*pager*/
+#pager
+{
+    width:100pt;
+    height:20pt;
+    margin-top:auto; 
+    margin-bottom: 10pt;
+
+    background:gray;
 }
