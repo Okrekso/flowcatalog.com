@@ -5,8 +5,8 @@ function Item(props)
         addToCart()
         {
             var source=$('#buy_'+this.props.id+" img");
-            source.animate({height:"85%"},100,
-            ()=>{source.attr('src','/pics/success.png'); source.animate({height:"100%"},100)});
+            source.animate({height:"30%"},100,
+            ()=>{source.attr('src','/pics/success.png'); source.animate({height:"60%"},100)});
             
             $('#buy_'+this.props.id).hover(()=>{$(this).css('background','red')});
 
@@ -35,11 +35,13 @@ function Item(props)
         {
             super(props);
         }
+        style_sucess={height:"100%"}
+        style_cart={height:"60%"}
         render()
         {
             return <div id={'buy_'+this.props.id} onMouseDown={(e)=>this.functional(e)} className='btn'> 
             <p id='price'>{this.props.price}<b> UAH</b></p>
-            <img src='pics/cart.png'/>
+            <img src={incart.indexOf('#buy_'+this.props.id)==-1?'pics/cart.png':'pics/success.png'}/>
             </div>;
         }
     }
@@ -66,12 +68,14 @@ function Item(props)
         );
 }
 //render
-function RenderShop()
+function RenderShop(page=0)
 {
     var items;
     var ajax = $.ajax(
         {
+            type:"GET",
             url:"/php/renderShop.php",
+            data:{offset:page},
             async:false,
             success: function(res)
             {
@@ -79,17 +83,44 @@ function RenderShop()
             }
         }
     );
-    function App()
+    class Pager extends React.Component
     {
-        var items_p=[];
-            for(var i=0;i<items.length;i++)
-            {
-                items_p.push(<Item key={items[i][0]} name={items[i][1]} price={items[i][2]} img={items[i][4]} tags={items[i][3]} count={items[i][5]} id={items[i][0]}/>);
-            }
-        return (<div id='shop_content'><div id='items'>{items_p}</div><div id='pager'></div></div>);
+        nextPage()
+        {
+            go_nextPage();
+        }
+        prevPage()
+        {
+            go_prevPage();
+        }
+        render()
+        {
+            return(
+                <div id='pager'>
+                    <div className={page==0?'btn close':'btn open'} onMouseDown={(e)=>{this.prevPage(e)}} id='prev_page'>{'<'}</div>
+                    <p id='page_num'>{page+1}</p>
+                    <div className='btn open' onMouseDown={(e)=>{this.nextPage(e)}} id='next_page'>{'>'}</div>
+                </div>
+            );
+        }
+    }
+    class App extends React.Component
+    {
+        componentDidMount()
+        {
+            animateInRow(".itm",100);
+        }
+        render()
+        {
+            var items_p=[];
+                for(var i=0;i<items.length;i++)
+                {
+                    items_p.push(<Item key={items[i][0]} name={items[i][1]} price={items[i][2]} img={items[i][4]} tags={items[i][3]} count={items[i][5]} id={items[i][0]}/>);
+                }
+            return (<div id='shop_content'><div id='items'>{items_p}</div><Pager/></div>);
+        }
     }
     ReactDOM.render(<App/>,document.getElementById('main'));
-    animateInRow(".itm",100);
     
 }
 function animateInRow(classToAnim, delay,animFrom={marginTop:"-=20pt",opacity:0},animTo={marginTop:"+=20pt",opacity:1})

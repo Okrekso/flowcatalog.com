@@ -1,6 +1,7 @@
 <?php
 $con = mysqli_connect("localhost","root","","FShop");
-$result = mysqli_query($con,"SELECT * FROM SHOP LIMIT 20");
+$offset=$_GET['offset']; $offset=$offset*6;
+$result = mysqli_query($con,"SELECT * FROM SHOP LIMIT $offset,6");
 $items=array();
 while($row=mysqli_fetch_row($result))
 {

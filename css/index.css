@@ -99,7 +99,7 @@ body
 #shop_content
 {
     width:90%;
-    height:max-content;
+    height:min-content;
     display:flex;
     flex-direction: column;
     align-items: center;
@@ -202,8 +202,132 @@ body
 {
     width:100pt;
     height:20pt;
-    margin-top:auto; 
-    margin-bottom: 10pt;
 
-    background:gray;
+    display: flex;
+    justify-content: space-between;
+}
+#pager p
+{
+    color:rgb(114, 114, 114);
+    background: linear-gradient(rgb(219, 219, 219),rgb(199, 199, 199));
+    width:100%;
+    text-align: center;
+}
+#pager .btn
+{
+    color:rgb(4, 204, 4);
+    padding-left: 5pt;
+    padding-right: 5pt;
+    width:15pt;
+    display: flex; justify-content: center; align-items: center;
+}
+#pager .close
+{
+    color:gray;
+}
+#pager .close:hover
+{
+    background:none;
+}
+#pager .open:hover
+{
+    color:rgb(255, 255, 255);
+    background: rgb(19, 221, 36)
+}
+/*interface_acc*/
+.interface_acc
+{
+    position: absolute;
+    top:30pt;
+    right: 10pt;
+    float:right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    display:none;
+    opacity:0;
+    
+    transition: 1s;
+}
+
+.interface_acc #arrow {
+    width: 0; 
+    height: 0; 
+    border-left: 20pt solid transparent;
+    border-right: 0pt solid transparent;
+    
+    margin-right: 40pt;
+    top:50pt;
+    border-bottom: 20pt solid rgba(0, 127, 0, 0.9);
+}
+
+.interface_acc #interface_acc_main
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+
+    background:rgba(0, 127, 0, 0.9);
+    width:300pt; height:min-content;
+    padding:10pt;
+}
+.interface_acc #interface_acc_main input
+{
+    border-radius: 30pt;
+    width:90%; height:20pt; font-size: 15pt; padding:5pt;
+    border:none;
+    margin:2pt;
+}
+.interface_acc #interface_acc_main .btn
+{
+    padding:5pt;
+    margin-top: 8pt;
+    background:rgb(13, 104, 13);
+    border-radius: 30pt;
+    width:80%;
+    display:flex; justify-content: center; align-items: center;
+}
+.interface_acc #interface_acc_main .btn:hover
+{
+    background: rgb(21, 199, 21);
+}
+
+.interface_acc form
+{
+    width:100%;
+    display: flex; justify-content: center; align-items: center;
+    flex-direction: column;
+}
+/*interface cart*/
+.interface_cart
+{
+    background:  rgba(13, 151, 13,0.9);
+    width:200pt; height:0pt;
+    position: absolute;
+
+    top:30pt;
+    right:0;
+    transition: 1s;
+
+    overflow: hidden;
+
+    display:flex; flex-direction: column;
+    align-items: center; justify-content: flex-start;
+}
+.interface_cart .btn
+{
+    width:90%; height:30pt; margin-top: auto; margin-bottom:1pt;
+    background:darkgreen;
+    display: flex; justify-content: center; align-items: center;
+}
+.interface_cart .btn:hover
+{
+    background:rgb(0, 185, 0);
+}
+.interface_cart #splitter
+{
+    background: linear-gradient(rgb(10, 97, 10),rgb(38, 219, 38));
+    height:5pt; width:100%; margin-top: auto;
 }

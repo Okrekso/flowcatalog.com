@@ -2,20 +2,59 @@ function Load()
 {
     RenderShop();
     animSearch();
-
-    $('.btn').each((i,id)=>{$(id).mousedown(()=>{btnDown(id)})});
+    
+    $('#acc_b').mousedown(()=>{openAccount()});
+    $('#cart_b').mousedown(()=>{cartAction()});
 }
 
 function animSearch()
 {
     $("#search input").animate({width:"300pt"},1000,()=>{$("#search .btn").animate({opacity:1},500)});
 }
-
-function btnDown(id) //function for animating btns
+//pages
+function go_nextPage() //go to the next page of items
 {
-    let fontsize=$(id).css('font-size');
-    fontsize=parseInt(fontsize);
-    fontsize_small = fontsize - fontsize*0.25;
-    $(id).css('font-size',fontsize_small);
-    setTimeout(()=>{$(id).css('font-size',fontsize);},200);
+    page+=1;
+    RenderShop(page);
+    $('#pager #page_num').text(page+1);
+    if(page>0){$('#prev_page').removeClass('close');  $('#prev_page').addClass('open');}
+}
+function go_prevPage() //go to the previouse page of items
+{
+    if(page>0) page-=1;
+    RenderShop(page);
+    $('#pager #page_num').text(page+1);
+    if(page==0) {$('#prev_page').removeClass('open');  $('#prev_page').addClass('close');}
+}
+
+var page=0;
+//pages
+
+//account
+var acc_open=false;
+function openAccount()
+{
+    if(!acc_open)
+    {
+        $('.interface_acc').css('display','flex');
+        setTimeout(()=>{$('.interface_acc').css('opacity','1')},100);
+        $('.interface_acc #arrow').addClass('account_arrow');
+        acc_open=true;
+    }
+    else
+    {
+        $('.interface_acc').css('opacity','0');
+        setTimeout(()=>{$('.interface_acc').css('display','none')},1000);
+        acc_open=false;
+    }
+}
+
+//cart
+cart_open=false;
+function cartAction()
+{
+    height=incart.length*35;
+    height+=35;
+    if(!cart_open){$('.interface_cart').css('height','300pt'); cart_open=true}
+    else{$('.interface_cart').css('height','0pt'); cart_open=false}
 }

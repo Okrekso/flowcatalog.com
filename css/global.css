@@ -20,4 +20,10 @@ h1
     height:100%;
     display: flex; align-items:center;
     transition: 0.2s;
+    user-select: none;
+}
+
+.btn:active
+{
+    background:rgb(89, 255, 89);
 }
