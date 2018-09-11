@@ -318,7 +318,7 @@ body
 }
 .interface_cart .btn
 {
-    width:90%; height:30pt; margin-top: auto; margin-bottom:1pt;
+    width:90%; height:30pt; margin-top: auto;
     background:darkgreen;
     display: flex; justify-content: center; align-items: center;
 }
