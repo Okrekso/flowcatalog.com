@@ -283,7 +283,7 @@ body
     align-items:center;
 
     background:rgba(0, 127, 0, 0.9);
-    width:300pt; height:min-content;
+    width:200pt; height:min-content;
     padding:10pt;
 }
 .interface_acc #interface_acc_main input
