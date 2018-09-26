@@ -10,8 +10,7 @@ function Item(props)
             
             $('#buy_'+this.props.id).hover(()=>{$(this).css('background','red')});
 
-            let sourceLoad=('#buy_'+this.props.id);
-            incart.push(sourceLoad);
+            incart.push(this.props.id);
         }
 
         removeFromCart()
@@ -20,15 +19,15 @@ function Item(props)
             source.animate({height:"50%"},100,
             ()=>{source.attr('src','/pics/cart.png'); source.animate({height:"60%"},100)});
 
-            var sourceLoad=('#buy_'+this.props.id);
-            incart.splice(sourceLoad);
+            incart = incart.filter((itm)=>{if(itm!=this.props.id) return itm});
         }
 
         functional()
         {
             var source=('#buy_'+this.props.id);
-            if(incart.indexOf(source)==-1) this.addToCart();
+            if(incart.indexOf(this.props.id)==-1) this.addToCart();
             else this.removeFromCart();
+            console.log(incart);
         }
 
         constructor(props)
@@ -41,7 +40,7 @@ function Item(props)
         {
             return <div id={'buy_'+this.props.id} onMouseDown={(e)=>this.functional(e)} className='btn'> 
             <p id='price'>{this.props.price}<b> UAH</b></p>
-            <img src={incart.indexOf('#buy_'+this.props.id)==-1?'pics/cart.png':'pics/success.png'}/>
+            <img src={incart.indexOf(this.props.id)==-1?'pics/cart.png':'pics/success.png'}/>
             </div>;
         }
     }
@@ -68,6 +67,7 @@ function Item(props)
         );
 }
 //render
+var maxItems=6;
 function RenderShop(page=0)
 {
     var items;
@@ -75,7 +75,7 @@ function RenderShop(page=0)
         {
             type:"GET",
             url:"/php/renderShop.php",
-            data:{offset:page},
+            data:{offset:page,itemsCount:maxItems},
             async:false,
             success: function(res)
             {
@@ -87,11 +87,11 @@ function RenderShop(page=0)
     {
         nextPage()
         {
-            go_nextPage();
+            if(items.length==maxItems) go_nextPage();
         }
         prevPage()
         {
-            go_prevPage();
+            if(page!=0) go_prevPage();
         }
         render()
         {
@@ -99,7 +99,7 @@ function RenderShop(page=0)
                 <div id='pager'>
                     <div className={page==0?'btn close':'btn open'} onMouseDown={(e)=>{this.prevPage(e)}} id='prev_page'>{'<'}</div>
                     <p id='page_num'>{page+1}</p>
-                    <div className='btn open' onMouseDown={(e)=>{this.nextPage(e)}} id='next_page'>{'>'}</div>
+                    <div className={items.length==maxItems?'btn open':'btn close'} onMouseDown={(e)=>{this.nextPage(e)}} id='next_page'>{'>'}</div>
                 </div>
             );
         }
@@ -117,7 +117,7 @@ function RenderShop(page=0)
                 {
                     items_p.push(<Item key={items[i][0]} name={items[i][1]} price={items[i][2]} img={items[i][4]} tags={items[i][3]} count={items[i][5]} id={items[i][0]}/>);
                 }
-            return (<div id='shop_content'><div id='items'>{items_p}</div><Pager/></div>);
+            return (<div id='shop_content'><div id='items'>{items_p}</div><div id='bottom'><Pager/></div></div>);
         }
     }
     ReactDOM.render(<App/>,document.getElementById('main'));

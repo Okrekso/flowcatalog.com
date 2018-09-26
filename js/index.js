@@ -3,7 +3,7 @@ function Load()
     RenderShop();
     animSearch();
     
-    $('#acc_b').mousedown(()=>{openAccount()});
+    $('#acc_b').mousedown(()=>{AccAction()});
     $('#cart_b').mousedown(()=>{cartAction()});
 }
 
@@ -32,8 +32,10 @@ var page=0;
 
 //account
 var acc_open=false;
-function openAccount()
+function AccAction()
 {
+    if(cart_open) cartAction();
+
     if(!acc_open)
     {
         $('.interface_acc').css('display','flex');
@@ -53,6 +55,8 @@ function openAccount()
 cart_open=false;
 function cartAction()
 {
+    if(acc_open) AccAction();
+    
     height=incart.length*35;
     height+=35;
     if(!cart_open){$('.interface_cart').css('height','300pt'); cart_open=true}
